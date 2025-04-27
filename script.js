@@ -28,3 +28,16 @@ const products = [
   const whatsappURL = `https://wa.me/8801738730573?text=${encodeURIComponent(message)}`;
   window.open(whatsappURL, '_blank');
 }
+
+
+
+
+//add to cart file function
+function addToCart(name, code, color, price) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const quantity = 1; // Default quantity 1
+
+  cart.push({ name, code, color, price, quantity });
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert('Product added to cart!');
+}

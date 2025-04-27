@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - MUF</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+<body>
+    <h1>Welcome to Dashboard</h1>
+
+    <h2>Add Product</h2>
+
+    <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Customer Name</th>
+            <th>Phone Number</th>
+            <th>Delivery Address</th>
+            <th>Total Amount</th>
+            <th>Advance Paid (10%)</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="orderTableBody">
+          <!-- অর্ডার লিস্ট আসবে এখানে -->
+        </tbody>
+      </table>
+      
+
+    <input type="text" id="productName" placeholder="Product Name">
+    <input type="text" id="product code" placeholder="Product code">
+    <input type="text" id="productPrice" placeholder="Product Price">
+    <input type="text" id="Advanced Paid(10%)" placeholder="Advanced Paid(10%)">
+    <input type="text" id="productStock" placeholder="Product Stock">
+    <button onclick="addProduct()">Add Product</button>
+
+    
+
+    <h2>Products</h2>
+    <div id="productList"></div>
+
+    <script src="storage.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
+
+
+
