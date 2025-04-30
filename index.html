@@ -6,7 +6,6 @@
   <title>Madina Unique Fashion</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-   <script src="script.js"></script>
 <body>
   <header>
     <h1>Madina Unique Fashion</h1>
@@ -17,49 +16,71 @@
     </nav>
   </header>
 
-  <section class="<section class="products">
+  <section class="products">
     <h2>Our Collections</h2>
-    <div class="product-list">
-      <div id="product-list"></div>
-      <div class="product">
-        <img src="images/product1.jpg" alt="Product 1">
-        <h3>Elegant Kurti</h3>
-        <p>৳1200</p>
-        <button onclick="buyNow('Elegant Kurti', 1200)">Buy Now</button>
-      </div>
-      
-      <div class="product">
-        <img src="images/product2.jpg" alt="Product 2">
-        <h3>Men's Panjabi</h3>
-        <p>৳1500</p>
-        <button onclick="buyNow('Elegant Kurti', 1200)">Buy Now</button>
-      </div>
-      <div class="product">
-        <img src="images/product2.jpg" alt="Product 2">
-        <h3>Men's Panjabi</h3>
-        <p>৳1500</p>
-        <button onclick="buyNow('Elegant Kurti', 1200)">Buy Now</button>
-      </div>
-      <div class="product">
-        <img src="images/product2.jpg" alt="Product 2">
-        <h3>Men's Panjabi</h3>
-        <p>৳1500</p>
-        <button onclick="buyNow('Elegant Kurti', 1200)">Buy Now</button>
-      </div>
-      <!-- আরও প্রোডাক্ট চাইলে কপি করে যোগ করুন -->
-   
-    </div>
+    <div id="product-list"></div>
   </section>
+
+  <section>
     <h2>Exclusive Traditional & Modern Wear</h2>
     <p>Discover your perfect style today!</p>
     <button>Shop Now</button>
   </section>
-  
 
   <footer>
     <p>&copy; 2025 Madina Unique Fashion. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Static local product list (fallback)
+    const staticProducts = [
+      { name: "Female All Dress collection", price: "৳150 to ৳12000", img: "product1.jpg" },
+      { name: "Gents All Dress collection", price: "৳150 to ৳6000", img: "product2.jpg" },
+      { name: "Baby All Dress collection", price: "৳150 to ৳1200", img: "product3.jpg" },
+    ];
+
+    // Load products from backend API
+    fetch('https://madina-unique-backend.onrender.com/products')
+      .then(response => response.json())
+      .then(data => {
+        renderProducts(data);
+      })
+      .catch(error => {
+        console.error('API Error:', error);
+        renderProducts(staticProducts); // fallback to local if API fails
+      });
+
+    // Render products to the page
+    function renderProducts(products) {
+      const container = document.getElementById('product-list');
+      products.forEach(product => {
+        const item = document.createElement('div');
+        item.className = 'product';
+        item.innerHTML = `
+          <img src="images/${product.image || product.img}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>${product.price}</p>
+          <button onclick="buyNow('${product.name}', '${product.price}')">Buy Now</button>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    // WhatsApp Buy Now function
+    function buyNow(productName, price) {
+      const message = `Hello, I want to order "${productName}" for ৳${price}.`;
+      const whatsappURL = `https://wa.me/8801738730573?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, '_blank');
+    }
+
+    // Add to Cart function
+    function addToCart(name, code, color, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const quantity = 1;
+      cart.push({ name, code, color, price, quantity });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('Product added to cart!');
+    }
+  </script>
 </body>
 </html>
