@@ -21,6 +21,24 @@ const products = [
     `;
     productContainer.appendChild(card);
   });
+
+fetch('https://madina-unique-backend.onrender.com/products')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('product-list');
+    data.forEach(product => {
+      const item = document.createElement('div');
+      item.innerHTML = `
+        <h3>${product.name}</h3>
+        <p>Price: ${product.price}</p>
+      `;
+      container.appendChild(item);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching products:', error);
+  });
+
   
   <!-- Whats app add buy now button -->
    function buyNow(productName, price) {
